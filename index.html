@@ -495,11 +495,15 @@
     // ---- Silent webhook POST (fire-and-forget, never blocks the UI) ----
     function sendToWebhook(payload) {
       try {
+        var formData = new URLSearchParams();
+        formData.append("email", payload.email);
+        formData.append("score", payload.score);
+        formData.append("category", payload.category);
+
         fetch(WEBHOOK_URL, {
           method: 'POST',
-          mode: 'no-cors', // Apps Script doesn't return CORS headers — no-cors keeps this from erroring or blocking
-          headers: { 'Content-Type': 'text/plain' }, // avoids a CORS preflight on Apps Script endpoints
-          body: JSON.stringify(payload)
+          mode: 'no-cors', 
+          body: formData
         }).catch(function (err) {
           console.warn('AIR predictor webhook failed silently:', err);
         });
