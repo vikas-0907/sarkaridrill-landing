@@ -95,7 +95,7 @@
 
         <div class="mt-8">
           <a href="#checkout" class="group inline-flex w-full sm:w-auto items-center justify-center gap-2 bg-alert hover:bg-alert-dark text-white font-display font-bold text-base sm:text-lg px-7 py-4 rounded-lg shadow-lg shadow-alert/25 transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy-950">
-            <span>Get the Execution OS — <span class="line-through font-normal text-white/60">₹999</span> for ₹399</span>
+            <span>Get the SSC Execution OS — <span class="line-through font-normal text-white/60">₹999</span> for ₹399</span>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 shrink-0 group-hover:translate-x-1 transition-transform">
               <path d="M5 12h14M13 6l6 6-6 6"/>
             </svg>
@@ -129,6 +129,78 @@
         </div>
       </div>
 
+    </div>
+  </section>
+
+  <!-- 1.5 AIR PREDICTOR TOOL -->
+  <section id="predictor" class="bg-white border-b border-line py-14 sm:py-20 lg:py-24">
+    <div class="max-w-2xl mx-auto px-5 sm:px-6 lg:px-8">
+
+      <div class="text-center">
+        <span class="font-mono text-[10px] sm:text-xs uppercase tracking-widest text-signal-dark font-semibold">Module_00 // Live Diagnostic</span>
+        <h2 class="mt-3 font-display font-bold text-3xl sm:text-4xl text-navy-950">Where Do You Actually Stand?</h2>
+        <p class="mt-3 text-navy-600 text-sm sm:text-base max-w-lg mx-auto leading-relaxed">Enter your last mock score. The Priority Engine will estimate your All India Rank and tell you exactly how much danger you're in.</p>
+      </div>
+
+      <div class="mt-8 sm:mt-10 border border-line rounded-2xl bg-paper p-6 sm:p-8 shadow-sm">
+
+        <!-- FORM STATE -->
+        <form id="airForm" class="space-y-5" novalidate>
+          <div>
+            <label for="mockScore" class="block font-mono text-[11px] uppercase tracking-widest text-navy-600 mb-1.5">Mock Score (out of 200)</label>
+            <input type="number" id="mockScore" min="0" max="200" step="0.5" inputmode="decimal" placeholder="e.g. 128" class="w-full rounded-lg border border-line bg-white px-4 py-3 text-navy-950 font-display font-semibold text-lg placeholder:text-navy-400 placeholder:font-normal focus:outline-none focus:ring-2 focus:ring-navy-950 focus:border-navy-950 transition-all">
+          </div>
+
+          <div>
+            <label for="category" class="block font-mono text-[11px] uppercase tracking-widest text-navy-600 mb-1.5">Category</label>
+            <select id="category" class="w-full rounded-lg border border-line bg-white px-4 py-3 text-navy-950 font-semibold focus:outline-none focus:ring-2 focus:ring-navy-950 focus:border-navy-950 transition-all">
+              <option value="UR (General)">UR (General)</option>
+              <option value="OBC">OBC</option>
+              <option value="EWS">EWS</option>
+              <option value="SC">SC</option>
+              <option value="ST">ST</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="email" class="block font-mono text-[11px] uppercase tracking-widest text-navy-600 mb-1.5">Email — to send your full report</label>
+            <input type="email" id="email" placeholder="you@example.com" class="w-full rounded-lg border border-line bg-white px-4 py-3 text-navy-950 font-semibold placeholder:text-navy-400 placeholder:font-normal focus:outline-none focus:ring-2 focus:ring-navy-950 focus:border-navy-950 transition-all">
+          </div>
+
+          <p id="airFormError" class="hidden text-alert text-sm font-medium"></p>
+
+          <button type="submit" id="airSubmitBtn" class="w-full inline-flex items-center justify-center gap-2 bg-alert hover:bg-alert-dark text-white font-display font-bold text-base sm:text-lg px-7 py-4 rounded-lg shadow-lg shadow-alert/25 transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy-950 disabled:opacity-70">
+            <span id="airSubmitLabel">Predict My Rank Now</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 shrink-0">
+              <path d="M5 12h14M13 6l6 6-6 6"/>
+            </svg>
+          </button>
+          <p class="text-center font-mono text-[10px] text-navy-400 tracking-wide">BASED ON PREVIOUS YEAR CUTOFF TRENDS · TAKES 5 SECONDS</p>
+        </form>
+
+        <!-- RESULT STATE -->
+        <div id="airResult" class="hidden text-center">
+          <p class="font-mono text-[10px] sm:text-xs uppercase tracking-widest text-navy-400">Estimated All India Rank</p>
+          <p id="airRankValue" class="mt-2 font-display font-bold text-navy-950 text-5xl sm:text-6xl tracking-tight">—</p>
+          <p id="airScoreLine" class="mt-2 text-navy-600 text-sm"></p>
+
+          <div id="airDiagnosisBox" class="mt-6 rounded-xl border-2 p-5 text-left">
+            <p id="airDiagnosisTag" class="font-mono text-xs font-bold uppercase tracking-widest"></p>
+            <p id="airDiagnosisMsg" class="mt-1.5 text-sm sm:text-base leading-relaxed text-navy-800"></p>
+          </div>
+
+          <div class="mt-6 rounded-xl bg-navy-950 p-6 sm:p-7 text-left">
+            <p id="airSalesHeadline" class="font-display font-bold text-white text-lg sm:text-xl leading-snug"></p>
+            <p class="mt-2 text-white/60 text-sm leading-relaxed">The Execution OS gives you the exact day-by-day roadmap to close that gap — before it's too late.</p>
+            <a href="#checkout" class="mt-5 w-full inline-flex items-center justify-center gap-2 bg-alert hover:bg-alert-dark text-white font-display font-bold text-base px-6 py-3.5 rounded-lg shadow-lg shadow-alert/25 transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
+              Fix My Score With the Execution OS
+            </a>
+          </div>
+
+          <button id="airReset" type="button" class="mt-5 font-mono text-xs text-navy-400 underline underline-offset-2 hover:text-navy-600 transition-colors">&larr; Check another score</button>
+        </div>
+
+      </div>
     </div>
   </section>
 
@@ -355,6 +427,172 @@
       Get Instant Access
     </a>
   </div>
+
+  <!-- AIR PREDICTOR LOGIC -->
+  <script>
+  (function () {
+    // ---- Config (mirrors the Python source) ----
+    var SCORE_BRACKETS = [0, 40, 70, 100, 120, 135, 145, 155, 165, 180, 200];
+    var RANK_BRACKETS  = [1500000, 1200000, 800000, 400000, 200000, 100000, 50000, 20000, 5000, 500, 1];
+    var CUTOFFS = { "UR (General)": 145, "OBC": 140, "EWS": 135, "SC": 115, "ST": 105 };
+    var WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbyHw_eR0JPDREf9WJTeI70hfXwHioqCNDG_WBLcYXCe4Q_noQU9oa09_YijLbFuFPgt/exec";
+
+    // ---- Elements ----
+    var form         = document.getElementById('airForm');
+    var scoreInput   = document.getElementById('mockScore');
+    var categorySel  = document.getElementById('category');
+    var emailInput   = document.getElementById('email');
+    var errorEl      = document.getElementById('airFormError');
+    var submitBtn    = document.getElementById('airSubmitBtn');
+    var submitLabel  = document.getElementById('airSubmitLabel');
+
+    var resultEl        = document.getElementById('airResult');
+    var rankValueEl      = document.getElementById('airRankValue');
+    var scoreLineEl       = document.getElementById('airScoreLine');
+    var diagnosisBoxEl    = document.getElementById('airDiagnosisBox');
+    var diagnosisTagEl    = document.getElementById('airDiagnosisTag');
+    var diagnosisMsgEl    = document.getElementById('airDiagnosisMsg');
+    var salesHeadlineEl   = document.getElementById('airSalesHeadline');
+    var resetBtn          = document.getElementById('airReset');
+
+    // ---- np.interp equivalent ----
+    // Mirrors numpy.interp(x, xp, fp): xp must be increasing.
+    // Values below xp[0] clamp to fp[0]; above xp[last] clamp to fp[last].
+    function npInterp(x, xp, fp) {
+      if (x <= xp[0]) return fp[0];
+      if (x >= xp[xp.length - 1]) return fp[fp.length - 1];
+      for (var i = 0; i < xp.length - 1; i++) {
+        if (x >= xp[i] && x <= xp[i + 1]) {
+          var t = (x - xp[i]) / (xp[i + 1] - xp[i]);
+          return fp[i] + t * (fp[i + 1] - fp[i]);
+        }
+      }
+      return fp[fp.length - 1];
+    }
+
+    function predictRank(score) {
+      return Math.round(npInterp(score, SCORE_BRACKETS, RANK_BRACKETS));
+    }
+
+    function formatIndianNumber(n) {
+      return n.toLocaleString('en-IN');
+    }
+
+    function isValidEmail(value) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+    }
+
+    function showError(msg) {
+      errorEl.textContent = msg;
+      errorEl.classList.remove('hidden');
+    }
+
+    function clearError() {
+      errorEl.textContent = '';
+      errorEl.classList.add('hidden');
+    }
+
+    // ---- Silent webhook POST (fire-and-forget, never blocks the UI) ----
+    function sendToWebhook(payload) {
+      try {
+        fetch(WEBHOOK_URL, {
+          method: 'POST',
+          mode: 'no-cors', // Apps Script doesn't return CORS headers — no-cors keeps this from erroring or blocking
+          headers: { 'Content-Type': 'text/plain' }, // avoids a CORS preflight on Apps Script endpoints
+          body: JSON.stringify(payload)
+        }).catch(function (err) {
+          console.warn('AIR predictor webhook failed silently:', err);
+        });
+      } catch (err) {
+        console.warn('AIR predictor webhook threw silently:', err);
+      }
+    }
+
+    // ---- Diagnosis rendering ----
+    function renderDiagnosis(score, category) {
+      var cutoff = CUTOFFS[category];
+      var safeThreshold = cutoff + 10;
+
+      if (score >= safeThreshold) {
+        diagnosisBoxEl.className = 'mt-6 rounded-xl border-2 p-5 text-left border-emerald-500/40 bg-emerald-50';
+        diagnosisTagEl.className = 'font-mono text-xs font-bold uppercase tracking-widest text-emerald-700';
+        diagnosisTagEl.textContent = 'Safe Zone';
+        diagnosisMsgEl.textContent = 'You\'re comfortably clear of the ' + category + ' cutoff trend (' + cutoff + '). Stay consistent and protect this lead through Tier 2.';
+        salesHeadlineEl.textContent = 'You\'re ahead. Now make sure you stay there.';
+      } else if (score >= cutoff) {
+        diagnosisBoxEl.className = 'mt-6 rounded-xl border-2 p-5 text-left border-signal/40 bg-signal-light';
+        diagnosisTagEl.className = 'font-mono text-xs font-bold uppercase tracking-widest text-signal-dark';
+        diagnosisTagEl.textContent = 'Borderline — At Risk';
+        diagnosisMsgEl.textContent = 'You\'re above the ' + category + ' cutoff trend (' + cutoff + '), but not by much. One weak mock and you\'re out.';
+        salesHeadlineEl.textContent = 'You\'re on the edge. One bad day away from missing this rank.';
+      } else {
+        var marksBehind = Math.round((cutoff - score) * 10) / 10;
+        diagnosisBoxEl.className = 'mt-6 rounded-xl border-2 p-5 text-left border-alert/40 bg-alert-light';
+        diagnosisTagEl.className = 'font-mono text-xs font-bold uppercase tracking-widest text-alert';
+        diagnosisTagEl.textContent = 'Danger Zone';
+        diagnosisMsgEl.textContent = 'You\'re currently ' + marksBehind + ' marks behind the ' + category + ' cutoff trend (' + cutoff + '). At this rate, Tier 1 does not happen.';
+        salesHeadlineEl.textContent = 'You\'re ' + marksBehind + ' marks behind. Close the gap before it closes your chances.';
+      }
+    }
+
+    // ---- Submit handler ----
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      clearError();
+
+      var rawScore = scoreInput.value.trim();
+      var score = parseFloat(rawScore);
+      var category = categorySel.value;
+      var email = emailInput.value.trim();
+
+      if (!email || !isValidEmail(email)) {
+        showError('Enter a valid email to see your predicted rank.');
+        emailInput.focus();
+        return;
+      }
+      if (rawScore === '' || isNaN(score) || score < 0 || score > 200) {
+        showError('Enter a valid mock score between 0 and 200.');
+        scoreInput.focus();
+        return;
+      }
+
+      // Fire the webhook immediately — silent, non-blocking
+      sendToWebhook({
+        email: email,
+        score: score,
+        category: category,
+        timestamp: new Date().toISOString()
+      });
+
+      // Brief "engine running" moment for perceived depth, then render
+      submitBtn.disabled = true;
+      submitLabel.textContent = 'Running Priority Engine...';
+
+      setTimeout(function () {
+        var rank = predictRank(score);
+
+        rankValueEl.textContent = 'AIR \u2248 ' + formatIndianNumber(rank);
+        scoreLineEl.textContent = 'Based on a mock score of ' + score + '/200 in the ' + category + ' category.';
+        renderDiagnosis(score, category);
+
+        form.classList.add('hidden');
+        resultEl.classList.remove('hidden');
+        resultEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+        // Reset button state for next time
+        submitBtn.disabled = false;
+        submitLabel.textContent = 'Predict My Rank Now';
+      }, 500);
+    });
+
+    // ---- Reset ----
+    resetBtn.addEventListener('click', function () {
+      resultEl.classList.add('hidden');
+      form.classList.remove('hidden');
+      clearError();
+    });
+  })();
+  </script>
 
 </body>
 </html>
