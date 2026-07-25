@@ -1,155 +1,360 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>SARKARIDRILL — SSC CGL Execution OS</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="A 32-week SSC CGL execution system built around the official syllabus, with a custom study-plan generator, tracker, and weekly workflow." />
-  <style>
-    :root {
-      --primary: #007BFF; /* blue */
-      --primary-dark: #0056b3;
-      --text: #111827;
-      --muted: #6b7280;
-      --bg: #ffffff;
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SSC CGL Execution OS — Stop Collecting PDFs. Start Executing.</title>
+<meta name="description" content="The day-by-day execution system for SSC CGL Tier 1 & 2. 32-week roadmap, 6-week crash course, 220 auto-search video links, and a mistake-repair log. ₹399.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          navy: {
+            950: '#0A1628',
+            900: '#0F2038',
+            800: '#16294A',
+            700: '#22385C',
+            600: '#48597A',
+            400: '#8291A8',
+          },
+          paper: '#FBFAF7',
+          line: '#E6E1D6',
+          alert: {
+            DEFAULT: '#DC2626',
+            dark: '#B91C1C',
+            light: '#FEE2E2',
+          },
+          signal: {
+            DEFAULT: '#F97316',
+            dark: '#C2410C',
+            light: '#FFEDD5',
+          },
+        },
+        fontFamily: {
+          display: ['"Space Grotesk"', 'sans-serif'],
+          mono: ['"JetBrains Mono"', 'monospace'],
+          body: ['"Inter"', 'sans-serif'],
+        },
+      }
     }
-    body {
-      font-family: system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
-      margin: 0; line-height: 1.5; color: var(--text); background: var(--bg);
-    }
-    .container { max-width: 960px; margin: 0 auto; padding: 24px; }
-    header.hero {
-      text-align: center; padding: 40px 24px;
-      background: linear-gradient(180deg, #f7faff 0%, #ffffff 100%);
-    }
-    .brand { font-size: 14px; letter-spacing: 1px; color: var(--muted); text-transform: uppercase; }
-    h1 { font-size: 36px; margin: 10px 0 8px; }
-    .sub { font-size: 18px; color: var(--muted); max-width: 640px; margin: 0 auto 12px; }
-    .btn {
-      display: inline-block; background: var(--primary); color: #fff;
-      padding: 12px 20px; border-radius: 8px; text-decoration: none; font-weight: 700;
-    }
-    .btn:hover { background: var(--primary-dark); }
-    section { padding: 28px 0; }
-    h2 { font-size: 24px; margin-bottom: 12px; }
-    ul.bullets { list-style: none; padding: 0; }
-    ul.bullets li { margin-bottom: 8px; }
-    .price-banner {
-      background: #f0f7ff; border: 1px solid #cfe3ff; padding: 12px 16px;
-      border-radius: 8px; text-align: center; margin: 16px 0;
-    }
-    .preview {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 16px; margin-top: 16px;
-    }
-    .card {
-      border: 1px solid #e5e7eb; border-radius: 10px; overflow: hidden;
-      background: #fff;
-    }
-    .card img { width: 100%; height: 160px; object-fit: cover; display: block; }
-    .card .body { padding: 12px; }
-    .muted { color: var(--muted); }
-    .faq { margin-top: 16px; }
-    .faq-item { margin-bottom: 12px; }
-    footer { border-top: 1px solid #e5e7eb; padding: 16px 0; margin-top: 24px; color: var(--muted); font-size: 14px; }
-    @media (max-width: 600px) {
-      h1 { font-size: 28px; }
-      .sub { font-size: 16px; }
-    }
-  </style>
+  }
+</script>
+
+<style>
+  @keyframes blink { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
+  .cursor-blink { animation: blink 1s steps(1, end) infinite; }
+
+  @keyframes statusPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+  .status-dot { animation: statusPulse 1.6s ease-in-out infinite; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cursor-blink, .status-dot { animation: none !important; }
+  }
+
+  html { scroll-behavior: smooth; }
+</style>
 </head>
-<body>
-  <header class="hero">
-    <div class="container">
-      <div class="brand">SARKARIDRILL</div>
-      <h1>SSC CGL Execution OS</h1>
-      <p class="sub">A 32‑week SSC CGL execution system built around the official syllabus, with a custom study‑plan generator, tracker, and weekly workflow.</p>
-      <p class="muted">Go from confused to a clear daily plan in 3 minutes.</p>
-      <div style="margin:18px 0;">
-        <a class="btn" href="YOUR_INSTAMOJO_CHECKOUT_URL" target="_blank" rel="noopener">Buy & Download — ₹399 (intro)</a>
-      </div>
-      <p class="muted" style="margin-top:8px;">Intro price ₹399 • Regular price ₹999</p>
+
+<body class="font-body text-navy-950 bg-white antialiased pb-16 sm:pb-0">
+
+  <!-- SYSTEM STATUS BAR -->
+  <div class="w-full bg-navy-950 text-white/70">
+    <div class="max-w-6xl mx-auto px-5 sm:px-6 lg:px-8 py-2 flex items-center justify-between font-mono text-[10px] sm:text-xs tracking-widest">
+      <span class="flex items-center gap-2">
+        <span class="status-dot inline-block w-1.5 h-1.5 rounded-full bg-alert"></span>
+        SSC-CGL-EXECUTION-OS <span class="text-white/30 hidden xs:inline">v2.0</span>
+      </span>
+      <span class="text-white/40">SYLLABUS: 100% MAPPED</span>
     </div>
-  </header>
+  </div>
 
-  <main class="container">
-    <section>
-      <h2>What you get</h2>
-      <ul class="bullets">
-        <li>Personalized study‑plan generator (syllabus‑aligned)</li>
-        <li>32‑week execution tracker + weekly workflow sheets</li>
-        <li>Quick‑start guide + email support during the 32 weeks</li>
-      </ul>
-    </section>
+  <!-- 1. HERO -->
+  <section class="relative border-b border-line overflow-hidden">
+    <div class="max-w-6xl mx-auto px-5 sm:px-6 lg:px-8 pt-10 sm:pt-16 lg:pt-20 pb-14 sm:pb-20 grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-10 lg:gap-16 items-center">
 
-    <section id="hero-image">
-      <div style="text-align:center; margin-bottom:12px;">
-        <img src="https://placehold.co/900x500/007BFF/ffffff?text=SSC+CGL+Execution+OS+Preview" alt="SSC CGL Execution OS preview" style="max-width:100%; border-radius:10px; border:1px solid #e5e7eb;" />
+      <div>
+        <span class="inline-flex items-center font-mono text-[10px] sm:text-xs font-semibold uppercase tracking-widest text-signal-dark bg-signal-light border border-signal/30 px-3 py-1.5 rounded-full">
+          Built on the Official SSC Syllabus
+        </span>
+
+        <h1 class="mt-5 sm:mt-6 font-display font-bold text-4xl sm:text-5xl md:text-6xl leading-[1.08] text-navy-950 tracking-tight">
+          Stop Collecting PDFs.<br>
+          <span class="text-alert">Start Executing.</span>
+        </h1>
+
+        <p class="mt-5 sm:mt-6 text-base sm:text-lg text-navy-600 max-w-xl leading-relaxed">
+          You don't have a content problem, you have an execution problem. Get the exact day-by-day study roadmap to clear SSC CGL Tier 1 &amp; 2 without the overwhelm.
+        </p>
+
+        <div class="mt-8">
+          <a href="#checkout" class="group inline-flex w-full sm:w-auto items-center justify-center gap-2 bg-alert hover:bg-alert-dark text-white font-display font-bold text-base sm:text-lg px-7 py-4 rounded-lg shadow-lg shadow-alert/25 transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy-950">
+            <span>Get the Execution OS — <span class="line-through font-normal text-white/60">₹999</span> for ₹399</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 shrink-0 group-hover:translate-x-1 transition-transform">
+              <path d="M5 12h14M13 6l6 6-6 6"/>
+            </svg>
+          </a>
+        </div>
+        <p class="mt-4 font-mono text-[10px] sm:text-xs text-navy-400 tracking-wide">INSTANT DOWNLOAD · LIFETIME ACCESS · NO SUBSCRIPTION</p>
       </div>
-    </section>
 
-    <section>
-      <h2>What’s inside</h2>
-      <ul class="bullets">
-        <li>Study‑plan generator (syllabus‑aligned, 32‑week roadmap)</li>
-        <li>Tracker + weekly workflow sheets (PDF + editable)</li>
-        <li>Quick‑start guide + 30‑minute walkthrough</li>
-      </ul>
-    </section>
+      <!-- Terminal signature element -->
+      <div class="relative rounded-xl bg-navy-950 shadow-2xl shadow-navy-950/25 overflow-hidden border border-navy-800">
+        <div class="flex items-center gap-1.5 px-4 py-3 border-b border-white/10">
+          <span class="w-2.5 h-2.5 rounded-full bg-alert/70"></span>
+          <span class="w-2.5 h-2.5 rounded-full bg-signal/70"></span>
+          <span class="w-2.5 h-2.5 rounded-full bg-emerald-500/70"></span>
+          <span class="ml-3 font-mono text-[10px] sm:text-[11px] text-white/40">execution_os.sh</span>
+        </div>
+        <div class="p-5 sm:p-6 font-mono text-[11px] sm:text-[13px] leading-relaxed overflow-x-auto">
+          <p class="text-white/50">$ analyze --current-strategy</p>
+          <p class="mt-3 text-red-400">[ERROR] prioritization_engine ... NOT_FOUND</p>
+          <p class="text-red-400">[ERROR] syllabus_coverage ....... RANDOM</p>
+          <p class="text-signal">[WARN]  mock_test_mistakes ...... UNRESOLVED</p>
+          <p class="text-white/50">[STATUS] confidence_level ....... PANICKING</p>
 
-    <section>
-      <div class="price-banner">
-        <strong>Intro price ₹399</strong> • Regular price ₹999
-        <p class="muted" style="margin:6px 0 0;">7‑day money‑back if not satisfied</p>
+          <p class="mt-4 text-white/50">$ install ssc-cgl-execution-os</p>
+          <p class="mt-3 text-emerald-400">[OK] priority_engine ............ LOADED</p>
+          <p class="text-emerald-400">[OK] roadmap_32_week ............ MAPPED</p>
+          <p class="text-emerald-400">[OK] youtube_link_db (220) ...... INDEXED</p>
+          <p class="text-emerald-400">[OK] mistake_log_system ......... ACTIVE</p>
+
+          <p class="mt-4 text-white">[STATUS] mode: <span class="text-signal font-semibold">EXECUTING</span> <span class="cursor-blink">▉</span></p>
+        </div>
       </div>
-      <div style="text-align:center; margin:20px 0;">
-        <a class="btn" href="YOUR_INSTAMOJO_CHECKOUT_URL" target="_blank" rel="noopener">
-          Buy & Download — ₹399 (intro)
+
+    </div>
+  </section>
+
+  <!-- 2. AGITATION -->
+  <section class="bg-paper border-b border-line py-16 sm:py-20 lg:py-24">
+    <div class="max-w-4xl mx-auto px-5 sm:px-6 lg:px-8">
+      <span class="font-mono text-[10px] sm:text-xs uppercase tracking-widest text-alert font-semibold">Module_01 // Diagnostic Scan</span>
+      <h2 class="mt-3 font-display font-bold text-3xl sm:text-4xl md:text-[2.75rem] leading-tight text-navy-950">
+        Why are you still scoring <span class="underline decoration-alert decoration-4 underline-offset-4">under 130</span> in your mocks?
+      </h2>
+
+      <div class="mt-10 space-y-4 sm:space-y-5">
+        <div class="flex gap-4 bg-white border border-line rounded-lg p-5 sm:p-6">
+          <span class="shrink-0 h-fit font-mono text-[10px] sm:text-xs font-bold text-alert bg-alert-light rounded px-2 py-1">ERR_01</span>
+          <div>
+            <p class="font-display font-semibold text-navy-950 text-base sm:text-lg">Studying randomly, based on mood — not ROI.</p>
+            <p class="mt-1.5 text-navy-600 text-sm sm:text-base leading-relaxed">You open a book because you "feel like" Geometry today — not because it's worth more marks than whatever you skipped yesterday.</p>
+          </div>
+        </div>
+
+        <div class="flex gap-4 bg-white border border-line rounded-lg p-5 sm:p-6">
+          <span class="shrink-0 h-fit font-mono text-[10px] sm:text-xs font-bold text-alert bg-alert-light rounded px-2 py-1">ERR_02</span>
+          <div>
+            <p class="font-display font-semibold text-navy-950 text-base sm:text-lg">Wasting hours on complex "Late" stage topics — while core Arithmetic is still weak.</p>
+            <p class="mt-1.5 text-navy-600 text-sm sm:text-base leading-relaxed">You're grinding deep Geometry for 1-2 questions, while Simplification — worth 4-5 marks every single year — is still shaky.</p>
+          </div>
+        </div>
+
+        <div class="flex gap-4 bg-white border border-line rounded-lg p-5 sm:p-6">
+          <span class="shrink-0 h-fit font-mono text-[10px] sm:text-xs font-bold text-alert bg-alert-light rounded px-2 py-1">ERR_03</span>
+          <div>
+            <p class="font-display font-semibold text-navy-950 text-base sm:text-lg">Taking mock tests but never repairing the mistakes.</p>
+            <p class="mt-1.5 text-navy-600 text-sm sm:text-base leading-relaxed">You attempt a mock, see the score, feel bad, and move to the next one. Same silly mistakes. Same concept gaps. Every single time.</p>
+          </div>
+        </div>
+      </div>
+
+      <p class="mt-10 font-display font-semibold text-lg sm:text-xl text-navy-950">This isn't a knowledge problem. It's a systems problem.</p>
+    </div>
+  </section>
+
+  <!-- 3. SOLUTION -->
+  <section class="bg-white border-b border-line py-16 sm:py-20 lg:py-24">
+    <div class="max-w-6xl mx-auto px-5 sm:px-6 lg:px-8">
+      <span class="font-mono text-[10px] sm:text-xs uppercase tracking-widest text-signal-dark font-semibold">Module_02 // The Arsenal</span>
+      <h2 class="mt-3 font-display font-bold text-3xl sm:text-4xl md:text-[2.75rem] text-navy-950">The Ultimate Execution Arsenal</h2>
+      <p class="mt-3 text-navy-600 max-w-2xl text-sm sm:text-base">Four systems. Zero fluff. Everything built to move you from studying to executing.</p>
+
+      <div class="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6">
+
+        <div class="border border-line rounded-xl p-6 hover:border-navy-950/25 hover:shadow-lg transition-all">
+          <div class="flex items-center justify-between mb-4">
+            <div class="w-10 h-10 rounded-lg bg-navy-950 flex items-center justify-center text-white">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5">
+                <rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/>
+              </svg>
+            </div>
+            <span class="font-mono text-[10px] text-navy-400 tracking-widest">PKG_01</span>
+          </div>
+          <h3 class="font-display font-bold text-lg text-navy-950">The 32-Week Master Roadmap</h3>
+          <p class="mt-2 text-sm sm:text-base text-navy-600 leading-relaxed">Tier 1 &amp; 2, fully covered. Every single day mapped from Day 1 to exam day — zero guesswork about what to open today.</p>
+        </div>
+
+        <div class="border border-line rounded-xl p-6 hover:border-navy-950/25 hover:shadow-lg transition-all">
+          <div class="flex items-center justify-between mb-4">
+            <div class="w-10 h-10 rounded-lg bg-navy-950 flex items-center justify-center text-white">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5">
+                <path d="M13 2L4 14h6l-1 8 9-12h-6l1-8z"/>
+              </svg>
+            </div>
+            <span class="font-mono text-[10px] text-navy-400 tracking-widest">PKG_02</span>
+          </div>
+          <h3 class="font-display font-bold text-lg text-navy-950">The 6-Week Crash Course</h3>
+          <p class="mt-2 text-sm sm:text-base text-navy-600 leading-relaxed">Emergency triage for Tier 1. We trimmed the fat down to the 113 absolute Must-Do (P1) topics — for when you're already behind schedule.</p>
+        </div>
+
+        <div class="border border-line rounded-xl p-6 hover:border-navy-950/25 hover:shadow-lg transition-all">
+          <div class="flex items-center justify-between mb-4">
+            <div class="w-10 h-10 rounded-lg bg-navy-950 flex items-center justify-center text-white">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5">
+                <path d="M10 14a5 5 0 007 0l3-3a5 5 0 00-7-7l-1 1M14 10a5 5 0 00-7 0l-3 3a5 5 0 007 7l1-1"/>
+              </svg>
+            </div>
+            <span class="font-mono text-[10px] text-navy-400 tracking-widest">PKG_03</span>
+          </div>
+          <h3 class="font-display font-bold text-lg text-navy-950">The Database — 220 Auto-Search Links</h3>
+          <p class="mt-2 text-sm sm:text-base text-navy-600 leading-relaxed">A digital tracker where every single topic has a one-click link to the best free YouTube lectures. Stop searching. Start watching.</p>
+        </div>
+
+        <div class="border border-line rounded-xl p-6 hover:border-navy-950/25 hover:shadow-lg transition-all">
+          <div class="flex items-center justify-between mb-4">
+            <div class="w-10 h-10 rounded-lg bg-navy-950 flex items-center justify-center text-white">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5">
+                <rect x="6" y="4" width="12" height="17" rx="2"/><path d="M9 4V3a1 1 0 011-1h4a1 1 0 011 1v1M9 12l2 2 4-4"/>
+              </svg>
+            </div>
+            <span class="font-mono text-[10px] text-navy-400 tracking-widest">PKG_04</span>
+          </div>
+          <h3 class="font-display font-bold text-lg text-navy-950">Mock Scorecard &amp; Mistake Log</h3>
+          <p class="mt-2 text-sm sm:text-base text-navy-600 leading-relaxed">A system to tag every wrong answer as Concept, Speed, or Silly — so you fix the actual disease, not just the symptom.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. AUTHORITY / LOGIC -->
+  <section class="bg-paper border-b border-line py-16 sm:py-20 lg:py-24">
+    <div class="max-w-4xl mx-auto px-5 sm:px-6 lg:px-8">
+      <span class="font-mono text-[10px] sm:text-xs uppercase tracking-widest text-navy-600 font-semibold">Module_03 // The Priority Engine</span>
+      <h2 class="mt-3 font-display font-bold text-3xl sm:text-4xl text-navy-950">We didn't rewrite the syllabus. We ranked it.</h2>
+      <p class="mt-4 text-navy-600 leading-relaxed max-w-2xl text-sm sm:text-base">
+        Every topic in the official SSC CGL syllabus was run through one engine and scored on two axes — <span class="text-navy-950 font-semibold">ROI</span> (how many marks it's actually worth) and <span class="text-navy-950 font-semibold">Timeline</span> (when it should enter your prep). The result: you always know exactly what to study next, and why.
+      </p>
+
+      <div class="mt-10 grid gap-8">
+        <div>
+          <p class="font-mono text-[10px] sm:text-xs uppercase tracking-widest text-navy-400 mb-3">Ranked by ROI</p>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div class="border-2 border-alert/30 bg-white rounded-lg p-4">
+              <p class="font-mono text-xs font-bold text-alert">P1</p>
+              <p class="mt-1 font-display font-semibold text-navy-950 text-sm">Do or Die</p>
+              <p class="mt-1 text-xs text-navy-600 leading-relaxed">Highest weightage. Non-negotiable. These build your score.</p>
+            </div>
+            <div class="border-2 border-signal/30 bg-white rounded-lg p-4">
+              <p class="font-mono text-xs font-bold text-signal-dark">P2</p>
+              <p class="mt-1 font-display font-semibold text-navy-950 text-sm">High Leverage</p>
+              <p class="mt-1 text-xs text-navy-600 leading-relaxed">Solid, reliable returns. Study after P1 is locked in.</p>
+            </div>
+            <div class="border-2 border-navy-400/30 bg-white rounded-lg p-4">
+              <p class="font-mono text-xs font-bold text-navy-600">P3</p>
+              <p class="mt-1 font-display font-semibold text-navy-950 text-sm">Low ROI</p>
+              <p class="mt-1 text-xs text-navy-600 leading-relaxed">Skip first if you're short on time. Revisit only if surplus.</p>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <p class="font-mono text-[10px] sm:text-xs uppercase tracking-widest text-navy-400 mb-3">Mapped by Timeline</p>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <div class="border border-line rounded-lg p-4 bg-white">
+              <p class="font-mono text-xs font-bold text-navy-950">EARLY</p>
+              <p class="mt-1 text-xs text-navy-600 leading-relaxed">Foundation. Build the base before speed matters.</p>
+            </div>
+            <div class="border border-line rounded-lg p-4 bg-white">
+              <p class="font-mono text-xs font-bold text-navy-950">MIDDLE</p>
+              <p class="mt-1 text-xs text-navy-600 leading-relaxed">Build volume and speed on top of the base.</p>
+            </div>
+            <div class="border border-line rounded-lg p-4 bg-white">
+              <p class="font-mono text-xs font-bold text-navy-950">LATE</p>
+              <p class="mt-1 text-xs text-navy-600 leading-relaxed">Advanced, low-frequency topics. Only once P1/P2 are solid.</p>
+            </div>
+            <div class="border border-line rounded-lg p-4 bg-white">
+              <p class="font-mono text-xs font-bold text-navy-950">REVISION</p>
+              <p class="mt-1 text-xs text-navy-600 leading-relaxed">Lock-in phase. Mocks, mistake repair, speed drills.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. PRICING / CHECKOUT -->
+  <section id="checkout" class="bg-white py-16 sm:py-20 lg:py-24">
+    <div class="max-w-2xl mx-auto px-5 sm:px-6 lg:px-8 text-center">
+      <span class="font-mono text-[10px] sm:text-xs uppercase tracking-widest text-alert font-semibold">Module_04 // Deploy</span>
+      <h2 class="mt-3 font-display font-bold text-3xl sm:text-4xl text-navy-950 leading-tight">
+        Cheaper than one generic coaching book.<br class="hidden sm:block"> Infinitely more valuable.
+      </h2>
+
+      <div class="mt-10 border-2 border-navy-950 rounded-2xl p-6 sm:p-10 bg-paper">
+        <span class="inline-flex items-center gap-1.5 font-mono text-[10px] sm:text-xs font-bold uppercase tracking-widest text-white bg-alert px-3 py-1.5 rounded-full">
+          <span class="status-dot w-1.5 h-1.5 rounded-full bg-white"></span> Limited Time Offer!
+        </span>
+
+        <div class="mt-5 flex items-end justify-center gap-3">
+          <span class="text-xl sm:text-2xl text-navy-400 line-through font-display">₹999</span>
+          <span class="text-5xl sm:text-6xl font-display font-bold text-navy-950">₹399</span>
+        </div>
+        <p class="mt-2 text-navy-600 text-sm">One-time payment. Instant access. Yours forever.</p>
+
+        <ul class="mt-8 space-y-3 text-left max-w-sm mx-auto">
+          <li class="flex gap-3 text-sm sm:text-base text-navy-800">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-emerald-600 shrink-0 mt-0.5"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.5 2.5L16 9.5"/></svg>
+            32-Week Master Roadmap (Tier 1 &amp; 2)
+          </li>
+          <li class="flex gap-3 text-sm sm:text-base text-navy-800">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-emerald-600 shrink-0 mt-0.5"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.5 2.5L16 9.5"/></svg>
+            6-Week Crash Course — 113 P1 topics
+          </li>
+          <li class="flex gap-3 text-sm sm:text-base text-navy-800">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-emerald-600 shrink-0 mt-0.5"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.5 2.5L16 9.5"/></svg>
+            Database of 220 auto-search video links
+          </li>
+          <li class="flex gap-3 text-sm sm:text-base text-navy-800">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-emerald-600 shrink-0 mt-0.5"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.5 2.5L16 9.5"/></svg>
+            Mock Scorecard &amp; Mistake Log system
+          </li>
+        </ul>
+
+        <a href="YOUR_PAYMENT_LINK_HERE" class="mt-9 w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-alert hover:bg-alert-dark text-white font-display font-bold text-base sm:text-lg px-8 py-4 rounded-lg shadow-lg shadow-alert/25 transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy-950">
+          Download the System Instantly
         </a>
-        <p class="muted" style="margin-top:8px;">Intro price ₹399 • Regular price ₹999</p>
+        <p class="mt-4 font-mono text-[10px] sm:text-xs text-navy-400 tracking-wide">DELIVERED DIGITALLY · WORKS ON ANY DEVICE · NO WAITING</p>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section>
-      <h2>Preview</h2>
-      <div class="preview">
-        <div class="card">
-          <img src="https://placehold.co/600x400/007BFF/ffffff?text=Study+Plan+Generator" alt="Study plan generator preview">
-          <div class="body muted">Study‑plan generator</div>
-        </div>
-        <div class="card">
-          <img src="https://placehold.co/600x400/007BFF/ffffff?text=32-Week+Tracker" alt="32-week tracker preview">
-          <div class="body muted">32‑week tracker</div>
-        </div>
-      </div>
-    </section>
+  <!-- 6. FOOTER -->
+  <footer class="bg-navy-950 text-white/50 py-8">
+    <div class="max-w-6xl mx-auto px-5 sm:px-6 lg:px-8 text-center">
+      <p class="font-mono text-[10px] tracking-widest text-white/30">SSC-CGL-EXECUTION-OS // SESSION_ACTIVE</p>
+      <p class="mt-2 text-xs sm:text-sm">© 2026 Sarkari Drill. All rights reserved.</p>
+    </div>
+  </footer>
 
-    <section>
-      <h2>FAQ</h2>
-      <div class="faq">
-        <div class="faq-item">
-          <strong>Q: What exactly is delivered?</strong>
-          <p class="muted">Instant ZIP download after payment containing the generator files, tracker, weekly workflow sheets, and quick‑start guide.</p>
-        </div>
-        <div class="faq-item">
-          <strong>Q: Can I use this for CGL 2026/2027?</strong>
-          <p class="muted">Yes — it’s syllabus‑aligned and designed for any upcoming cycle.</p>
-        </div>
-        <div class="faq-item">
-          <strong>Q: What format are the files?</strong>
-          <p class="muted">ZIP with PDFs and editable sheets; instructions included.</p>
-        </div>
-        <div class="faq-item">
-          <strong>Q: Can I get a refund?</strong>
-          <p class="muted">Yes — 7‑day money‑back if not satisfied.</p>
-        </div>
-      </div>
-    </section>
+  <!-- STICKY MOBILE CTA -->
+  <div class="fixed bottom-0 inset-x-0 z-50 sm:hidden bg-white border-t border-line px-4 py-3 flex items-center justify-between gap-3 shadow-[0_-4px_20px_rgba(10,22,40,0.10)]">
+    <div class="font-mono leading-tight">
+      <span class="line-through text-navy-400 text-xs">₹999</span>
+      <span class="text-navy-950 font-bold text-sm ml-1">₹399</span>
+    </div>
+    <a href="#checkout" class="flex-1 max-w-[220px] text-center bg-alert text-white font-display font-bold text-sm px-4 py-3 rounded-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy-950">
+      Get Instant Access
+    </a>
+  </div>
 
-    <footer>
-      <p>Contact: <a href="mailto:YOUR_EMAIL">YOUR_EMAIL</a></p>
-      <p>© 2026 SARKARIDRILL • All rights reserved. 7‑day money‑back guarantee.</p>
-    </footer>
-  </main>
 </body>
 </html>
